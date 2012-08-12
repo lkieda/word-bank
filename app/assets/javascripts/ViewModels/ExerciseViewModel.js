@@ -104,19 +104,9 @@
         }
     };
 
-    self.pendingQuestions = [
-        { praesens: "gehen", praeteritum: "ging", partizip: "gegangen", attempts: "0"},
-        { praesens: "springen", praeteritum: "sprang", partizip: "gesprungen", attempts: 0 },
-        { praesens: "trinken", praeteritum: "trank", partizip: "getrunken", attempts: 0 },
-        { praesens: "schwimmen", praeteritum: "schwamm", partizip: "geschwommen", attempts: 0 },
-        { praesens: "wachsen", praeteritum: "wuchs", partizip: "gewachsen", attempts: 0 },
-        { praesens: "sterben", praeteritum: "starb", partizip: "gestorben", attempts: 0 }
-    ];
-    _currentState(_states.exercise);
-    self.currentQuestion(self.getNextQuestion());
-//    $.post('Exercise/GetQuestions', function (data) {
-//        self.pendingQuestions = data.questions;
-//        _currentState(_states.exercise);
-//        self.currentQuestion(self.getNextQuestion());
-//    });
+    $.post('exercise/questions', function (data) {
+        self.pendingQuestions = data;
+        _currentState(_states.exercise);
+        self.currentQuestion(self.getNextQuestion());
+    });
 };

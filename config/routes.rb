@@ -1,6 +1,7 @@
 MySecondApp::Application.routes.draw do
 
   root :to => 'exercise#index'
+  match 'exercise/questions' => 'exercise#questions'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
