@@ -1,1 +1,65 @@
-Templating test.
+﻿<div data-bind="visible: isLoadingData">
+  <p>Pobieranie danych, proszę czekać...</p>
+</div>
+<div data-bind="visible: isExerciseFormVisible" style="display: none;">
+  <form data-bind="submit: submitAnswer">
+    <fieldset>
+      <table>
+        <tr>
+          <td>Präsens</td>
+          <td>
+            <input type="text" data-bind="value: praesensAnswer"/>
+          </td>
+          <td>
+            <span class="feedback" data-bind="text: praesensFeedback"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Präteritum</td>
+          <td>
+            <input type="text" data-bind="value: praeteritumAnswer"  autofocus="autofocus"/>
+          </td>
+          <td>
+            <span class="feedback" data-bind="text: praeteritumFeedback"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Partizip II</td>
+          <td>
+            <input type="text" data-bind="value: partizipAnswer"/>
+          </td>
+          <td>
+            <span class="feedback" data-bind="text: partizipFeedback"></span>
+          </td>
+        </tr>
+      </table>
+      <button type="submit" data-bind="attr: submitAttributes">Sprawdzam</button>
+    </fieldset>
+  </form>
+</div>
+<div data-bind="visible: isSummaryTableVisible" style="display: none;">
+  <table>
+    <thead>
+    <tr>
+      <td>Präsens</td>
+      <td>Präteritum</td>
+      <td>Partizip II</td>
+      <td>attempts</td>
+    </tr>
+    </thead>
+    <tbody data-bind="foreach: answeredQuestions">
+    <tr>
+      <td data-bind="text: praesens"></td>
+      <td data-bind="text: praeteritum"></td>
+      <td data-bind="text: partizip"></td>
+      <td data-bind="text: attempts"></td>
+    </tr>
+    </tbody>
+  </table>
+  <p>Score: <span data-bind="text: scoreString"></span></p>
+</div>
+
+<%= javascript_include_tag "knockout-2.0.0.js", "ViewModels/ExerciseViewModel.js" %>
+<script type="text/javascript">
+    ko.applyBindings(new ExerciseViewModel());
+</script>
