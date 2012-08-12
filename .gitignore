@@ -13,3 +13,9 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore editor's temp files
+*~
+
+# Ignore database.yml
+config/database.yml
