@@ -1,6 +1,7 @@
 ﻿function ExerciseViewModel() {
     var self = this;
 
+    // Private variables
     var _isRechecking = ko.observable(false);
     var _firstAttemptFailed = false;
     var _states = {
@@ -8,25 +9,22 @@
         exercise: 2,
         summary: 3
     };
-
     var _currentState = ko.observable(_states.loadingData);
 
-    self.praeteritumAnswer = ko.observable();
+    // Public properties
+    self.answeredQuestions = ko.observableArray();
+    self.currentQuestion = ko.observable({praesens: "", praeteritum: "", partizip: "", attempts: "0"});
     self.partizipAnswer = ko.observable();
-
+    self.pendingQuestions = [];
+    self.praeteritumAnswer = ko.observable();
     self.submitAttributes = ko.observable({});
 
-    self.pendingQuestions = [];
-
-    self.answeredQuestions = ko.observableArray();
-
+    // Methods
     self.getNextQuestion = function () {
         var nextQuestion = self.pendingQuestions.shift();
         nextQuestion.attempts++;
         return nextQuestion;
     };
-
-    self.currentQuestion = ko.observable({praesens: "", praeteritum: "", partizip: "", attempts: "0"});
 
     self.validateAnswer = function (given, correct) {
         if (_isRechecking() === false) return "";
@@ -40,7 +38,7 @@
     }
 
     self.praesensAnswer = ko.computed(function () {
-        return self.currentQuestion().praesens;
+        return (self.currentQuestion() == null) ? "" : self.currentQuestion().praesens;
     }, this);
 
     self.praesensFeedback = ko.computed(function () {
@@ -104,9 +102,21 @@
         }
     };
 
-    $.post('exercise/questions', function (data) {
-        self.pendingQuestions = data;
-        _currentState(_states.exercise);
-        self.currentQuestion(self.getNextQuestion());
-    });
+    self.loadNewQuestions = function(){
+        _currentState(_states.loadingData);
+        self.currentQuestion({praesens: "", praeteritum: "", partizip: "", attempts: "0"});
+        self.praeteritumAnswer("");
+        self.partizipAnswer("");
+        self.submitAttributes({});
+        self.pendingQuestions = [];
+        self.answeredQuestions([]);
+
+        $.post('exercise/questions', function (data) {
+            self.pendingQuestions = data;
+            _currentState(_states.exercise);
+            self.currentQuestion(self.getNextQuestion());
+        });
+    };
+
+    self.loadNewQuestions();
 };
