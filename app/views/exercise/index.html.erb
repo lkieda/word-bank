@@ -17,7 +17,7 @@
         <tr>
           <td>Präteritum</td>
           <td>
-            <input type="text" data-bind="value: praeteritumAnswer"  autofocus="autofocus"/>
+            <input type="text" data-bind="value: praeteritumAnswer, valueUpdate: 'afterkeydown'"  autofocus="autofocus"/>
           </td>
           <td>
             <span class="feedback" data-bind="text: praeteritumFeedback"></span>
@@ -26,7 +26,7 @@
         <tr>
           <td>Partizip II</td>
           <td>
-            <input type="text" data-bind="value: partizipAnswer"/>
+            <input type="text" data-bind="value: partizipAnswer, valueUpdate: 'afterkeydown'"/>
           </td>
           <td>
             <span class="feedback" data-bind="text: partizipFeedback"></span>
