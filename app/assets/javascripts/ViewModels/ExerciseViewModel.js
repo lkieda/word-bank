@@ -18,7 +18,6 @@
     self.pendingQuestions = [];
     self.praeteritumAnswer = ko.observable();
     self.submitAttributes = ko.observable({});
-
     // Methods
     self.getNextQuestion = function () {
         var nextQuestion = self.pendingQuestions.shift();
@@ -53,6 +52,10 @@
         return self.validateAnswer(self.partizipAnswer(), self.currentQuestion().partizip);
     }, this);
 
+    self.isEnabled = ko.computed(function() {
+        return (self.partizipFeedback() == "" && self.praeteritumFeedback() == "");
+    }, this);
+
     self.isExerciseFormVisible = ko.computed(function () {
         return _currentState() == _states.exercise;
     }, this);
@@ -85,6 +88,7 @@
 
     var _acceptAnswer = function () {
         _isRechecking(false);
+
         if (_firstAttemptFailed) {
             self.pendingQuestions.push(self.currentQuestion());
         } else {

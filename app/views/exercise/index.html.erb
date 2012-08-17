@@ -1,6 +1,7 @@
 ﻿<div data-bind="visible: isLoadingData">
   <p>Pobieranie danych, proszę czekać...</p>
 </div>
+
 <div data-bind="visible: isExerciseFormVisible" style="display: none;">
   <form data-bind="submit: submitAnswer">
     <fieldset>
@@ -32,11 +33,18 @@
             <span class="feedback" data-bind="text: partizipFeedback"></span>
           </td>
         </tr>
+        <tr>
+          <td colspan="2">
+            <button type="submit" class="orange submit" data-bind="enable: isEnabled" style="float: right">
+              Sprawdzam
+            </button>
+          </td>
+        </tr>
       </table>
-      <button type="submit" data-bind="attr: submitAttributes">Sprawdzam</button>
     </fieldset>
   </form>
 </div>
+
 <div data-bind="visible: isSummaryTableVisible" style="display: none;">
   <table>
     <thead>
