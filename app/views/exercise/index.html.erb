@@ -7,6 +7,11 @@
     <fieldset>
       <table>
         <tr>
+          <td colspan="2" style="text-align: center; height: 1.5em;">
+            <span data-bind="text: generalFeedback().message, fadeVisible: generalFeedback().type"></span>
+          </td>
+        </tr>
+        <tr>
           <td>Präsens</td>
           <td>
             <input type="text" data-bind="value: praesensAnswer"/>
@@ -35,7 +40,7 @@
         </tr>
         <tr>
           <td colspan="2">
-            <button type="submit" class="orange submit" data-bind="enable: isEnabled" style="float: right">
+            <button type="submit" class="orange submit" data-bind="enable: isSubmitEnabled" style="float: right">
               Sprawdzam
             </button>
           </td>
@@ -74,7 +79,7 @@
   </table>
 </div>
 
-<%= javascript_include_tag "knockout-2.0.0.js", "ViewModels/ExerciseViewModel.js" %>
+<%= javascript_include_tag "ViewModels/ExerciseViewModel.js" %>
 <script type="text/javascript">
     ko.applyBindings(new ExerciseViewModel());
 </script>

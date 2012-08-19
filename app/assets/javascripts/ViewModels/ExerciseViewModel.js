@@ -13,11 +13,21 @@
 
     // Public properties
     self.answeredQuestions = ko.observableArray();
-    self.currentQuestion = ko.observable({praesens: "", praeteritum: "", partizip: "", attempts: "0"});
+    self.currentQuestion = ko.observable({
+        praesens: "",
+        praeteritum: "",
+        partizip: "",
+        attempts: "0"
+    });
+    self.generalFeedback = ko.observable({
+        message: "",
+        type : ""
+    });
     self.partizipAnswer = ko.observable();
     self.pendingQuestions = [];
     self.praeteritumAnswer = ko.observable();
     self.submitAttributes = ko.observable({});
+
     // Methods
     self.getNextQuestion = function () {
         var nextQuestion = self.pendingQuestions.shift();
@@ -52,7 +62,7 @@
         return self.validateAnswer(self.partizipAnswer(), self.currentQuestion().partizip);
     }, this);
 
-    self.isEnabled = ko.computed(function() {
+    self.isSubmitEnabled = ko.computed(function() {
         return (self.partizipFeedback() == "" && self.praeteritumFeedback() == "");
     }, this);
 
@@ -78,11 +88,25 @@
         return successes + "/" + failures + " (" + percentage + "%)";
     }, this);
 
+    var good = [
+       "Doskonale!",
+        "Jestem pod wrażeniem!",
+        "Zapierające dech w piersiach umiejętności."
+    ];
+    var bad = [
+        "Bez kitu, ale bieda.",
+        "I tego nawet nie umiesz?",
+        "Jestem zażenowany..."
+    ];
     self.submitAnswer = function () {
         _isRechecking(true);
 
+        self.generalFeedback("");
         if (self.partizipFeedback() + self.praesensFeedback() + self.praeteritumFeedback() == "") {
+            self.generalFeedback({message: good.getRandomElement(), type: "success"});
             _acceptAnswer();
+        } else {
+            self.generalFeedback({message: bad.getRandomElement(), type: "failure"});
         }
     };
 
@@ -114,6 +138,7 @@
         self.submitAttributes({});
         self.pendingQuestions = [];
         self.answeredQuestions([]);
+        self.generalFeedback({message: "", type: ""})
 
         $.post('exercise/questions', function (data) {
             self.pendingQuestions = data;
