@@ -146,6 +146,5 @@
             self.currentQuestion(self.getNextQuestion());
         });
     };
-
     self.loadNewQuestions();
 };

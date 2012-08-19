@@ -23,7 +23,8 @@
         <tr>
           <td>Präteritum</td>
           <td>
-            <input type="text" data-bind="value: praeteritumAnswer, valueUpdate: 'afterkeydown'"  autofocus="autofocus"/>
+            <input type="text" autofocus="autofocus"
+                   data-bind="value: praeteritumAnswer, valueUpdate: 'afterkeydown'"  />
           </td>
           <td>
             <span class="feedback" data-bind="text: praeteritumFeedback"></span>
@@ -51,35 +52,42 @@
 </div>
 
 <div data-bind="visible: isSummaryTableVisible" style="display: none;">
-  <table>
-    <thead>
-    <tr>
-      <td>Präsens</td>
-      <td>Präteritum</td>
-      <td>Partizip II</td>
-      <td>attempts</td>
-    </tr>
-    </thead>
-    <tbody data-bind="foreach: answeredQuestions">
+  <form data-bind="submit: loadNewQuestions">
+      <table>
+        <thead>
         <tr>
-          <td data-bind="text: praesens"></td>
-          <td data-bind="text: praeteritum"></td>
-          <td data-bind="text: partizip"></td>
-          <td data-bind="text: attempts"></td>
+          <td>Präsens</td>
+          <td>Präteritum</td>
+          <td>Partizip II</td>
+          <td>attempts</td>
         </tr>
-    </tbody>
-    <tr>
-        <td colspan="3">
-            Score: <span data-bind="text: scoreString"></span>
-        </td>
-        <td>
-          <a href="#" data-bind="click: loadNewQuestions">Next round</a>
-        </td>
-    </tr>
-  </table>
+        </thead>
+        <tbody data-bind="foreach: answeredQuestions">
+            <tr>
+              <td data-bind="text: praesens"></td>
+              <td data-bind="text: praeteritum"></td>
+              <td data-bind="text: partizip"></td>
+              <td data-bind="text: attempts" style="text-align: center;"></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                  <p style="float: left;">
+                    Score: <span data-bind="text: scoreString"></span>
+                  </p>
+                  <button type="submit" class="orange submit" style="float: right; margin-top: 8px;" autofocus>
+                    Next round
+                  </button>
+                </td>
+            </tr>
+        </tfoot>
+      </table>
+  </form>
 </div>
 
 <%= javascript_include_tag "ViewModels/ExerciseViewModel.js" %>
+<%= javascript_include_tag "ViewModels/ExerciseViewModelMock.js" %>
 <script type="text/javascript">
     ko.applyBindings(new ExerciseViewModel());
 </script>
