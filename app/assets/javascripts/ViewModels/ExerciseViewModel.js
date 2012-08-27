@@ -96,7 +96,8 @@
     var bad = [
         "Bez kitu, ale bieda.",
         "I tego nawet nie umiesz?",
-        "Jestem zażenowany..."
+        "Jestem zażenowany...",
+        "Bez kitu, przecież to takie proste!"
     ];
     self.submitAnswer = function () {
         _isRechecking(true);
