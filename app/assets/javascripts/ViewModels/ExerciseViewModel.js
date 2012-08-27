@@ -24,8 +24,10 @@
         type : ""
     });
     self.partizipAnswer = ko.observable();
+    self.partizipFocus = ko.observable();
     self.pendingQuestions = [];
     self.praeteritumAnswer = ko.observable();
+    self.praeteritumFocus = ko.observable();
     self.submitAttributes = ko.observable({});
 
     // Methods
@@ -108,6 +110,11 @@
             _acceptAnswer();
         } else {
             self.generalFeedback({message: bad.getRandomElement(), type: "failure"});
+            if (self.praeteritumFeedback() != ""){
+                self.praeteritumFocus(true);
+            } else if (self.partizipFeedback() != ""){
+                self.partizipFocus(true);
+            }
         }
     };
 
@@ -122,6 +129,7 @@
 
         _firstAttemptFailed = false;
         self.praeteritumAnswer("");
+        self.praeteritumFocus(true);
         self.partizipAnswer("");
 
         if (self.pendingQuestions.length > 0) {
@@ -145,6 +153,7 @@
             self.pendingQuestions = data;
             _currentState(_states.exercise);
             self.currentQuestion(self.getNextQuestion());
+            self.praeteritumFocus(true);
         });
     };
     self.loadNewQuestions();

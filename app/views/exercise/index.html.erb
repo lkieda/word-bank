@@ -23,8 +23,8 @@
         <tr>
           <td>Präteritum</td>
           <td>
-            <input type="text" autofocus="autofocus"
-                   data-bind="value: praeteritumAnswer, valueUpdate: 'afterkeydown'"  />
+            <input type="text"
+                   data-bind="value: praeteritumAnswer, valueUpdate: 'afterkeydown', hasfocus: praeteritumFocus"  />
           </td>
           <td>
             <span class="feedback" data-bind="text: praeteritumFeedback"></span>
@@ -33,7 +33,8 @@
         <tr>
           <td>Partizip II</td>
           <td>
-            <input type="text" data-bind="value: partizipAnswer, valueUpdate: 'afterkeydown'"/>
+            <input type="text"
+                   data-bind="value: partizipAnswer, valueUpdate: 'afterkeydown', hasfocus: partizipFocus"/>
           </td>
           <td>
             <span class="feedback" data-bind="text: partizipFeedback"></span>
@@ -53,36 +54,37 @@
 
 <div data-bind="visible: isSummaryTableVisible" style="display: none;">
   <form data-bind="submit: loadNewQuestions">
-      <table>
-        <thead>
+    <table>
+      <thead>
         <tr>
           <td>Präsens</td>
           <td>Präteritum</td>
           <td>Partizip II</td>
           <td>attempts</td>
         </tr>
-        </thead>
-        <tbody data-bind="foreach: answeredQuestions">
-            <tr>
-              <td data-bind="text: praesens"></td>
-              <td data-bind="text: praeteritum"></td>
-              <td data-bind="text: partizip"></td>
-              <td data-bind="text: attempts" style="text-align: center;"></td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="4">
-                  <p style="float: left;">
-                    Score: <span data-bind="text: scoreString"></span>
-                  </p>
-                  <button type="submit" class="orange submit" style="float: right; margin-top: 8px;" autofocus>
-                    Next round
-                  </button>
-                </td>
-            </tr>
-        </tfoot>
-      </table>
+      </thead>
+      <tbody data-bind="foreach: answeredQuestions">
+        <tr>
+          <td data-bind="text: praesens"></td>
+          <td data-bind="text: praeteritum"></td>
+          <td data-bind="text: partizip"></td>
+          <td data-bind="text: attempts" style="text-align: center;"></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4">
+            <p style="float: left;">
+              Score: <span data-bind="text: scoreString"></span>
+            </p>
+              <button type="submit" class="orange submit" style="float: right; margin-top: 8px;"
+                data-bind="hasfocus: isSummaryTableVisible">
+                Next round
+              </button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   </form>
 </div>
 
